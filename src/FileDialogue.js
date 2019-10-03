@@ -20,17 +20,19 @@ class FileDialogue extends React.Component {
     }
 
     handleFileSelect = (e) => {
-        e.preventDefault();
-        this.fileSelector.click();
         
+        // e.preventDefault();
+        // this.fileSelector.click();
+        jsonFile:
+        console.log(e.target.files[0]);
 
-        // this.setState({ jsonFile: JSON.parse(e.target.result) }, () => {
-        //     console.log(this.state.jsonFile);
-        // });
+        this.setState({ jsonFile: JSON.parse(e.target.result) }, () => {
+            console.log(this.state.jsonFile);
+        });
     }
 
     render(){
-        return <a href="" onClick={this.handleFileSelect}>Open File</a>
+        return <input type="file" name="file" onChange={this.handleFileSelect}/>
     }
 }
 
