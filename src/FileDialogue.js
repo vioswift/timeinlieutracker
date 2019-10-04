@@ -23,11 +23,16 @@ class FileDialogue extends React.Component {
         
         // e.preventDefault();
         // this.fileSelector.click();
-        jsonFile:
-        console.log(e.target.files[0]);
+        
+        // console.log(e.target.files[0]);
 
-        this.setState({ jsonFile: JSON.parse(e.target.result) }, () => {
+        // this.setState({ jsonFile: JSON.parse(e.target.result) }, () => {
+        //     console.log(this.state.jsonFile);
+        // });
+
+        this.setState({ jsonFile: JSON.parse(JSON.stringify(e.target.files[0])) }, () => {
             console.log(this.state.jsonFile);
+            console.log(this.state.jsonFile.fruit.value);
         });
     }
 
