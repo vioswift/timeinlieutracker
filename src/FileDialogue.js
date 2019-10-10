@@ -12,32 +12,31 @@ class FileDialogue extends React.Component {
         super();
 
         this.state = {
-            jsonFile: {}
+            jsonFile: [],
         };
     }
+    
     componentDidMount(){
         this.fileSelector = buildFileSelector();
     }
 
     handleFileSelect = (e) => {
-        
-        // e.preventDefault();
-        // this.fileSelector.click();
-        
-        // console.log(e.target.files[0]);
+        // https://developer.mozilla.org/pt-BR/docs/Web/API/FileReader/onload
+        e.preventDefault();
 
-        // this.setState({ jsonFile: JSON.parse(e.target.result) }, () => {
-        //     console.log(this.state.jsonFile);
-        // });
+        var file = e.target.files[0];
+        var reader = new FileReader();
+        reader.onload = () => {
+            this.setState({ jsonFile: JSON.parse(reader.result) }, () => {
+                console.log(this.state.jsonFile.settings.show_signatures);
+            });            
+        };
 
-        this.setState({ jsonFile: JSON.parse(JSON.stringify(e.target.files[0])) }, () => {
-            console.log(this.state.jsonFile);
-            console.log(this.state.jsonFile.fruit.value);
-        });
+        reader.readAsText(file);
     }
 
     render(){
-        return <input type="file" name="file" onChange={this.handleFileSelect}/>
+        return <input type="file" name="file" onChange={this.handleFileSelect.bind(this)}/>
     }
 }
 

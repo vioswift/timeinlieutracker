@@ -7,6 +7,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         <h1>TimeInLieuTracker</h1>
+        {/* <p>File Version: {FileDialogue.state.jsonFile.settings.show_signatures}</p> */}
         <FileDialogue/>
       </header>
     </div>
