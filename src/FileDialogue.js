@@ -28,7 +28,7 @@ class FileDialogue extends React.Component {
         var reader = new FileReader();
         reader.onload = () => {
             this.setState({ jsonFile: JSON.parse(reader.result) }, () => {
-                console.log(this.state.jsonFile.settings.show_signatures);
+                console.log(this.state.jsonFile.fileInformation.version);
             });            
         };
 
