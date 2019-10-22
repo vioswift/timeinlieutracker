@@ -8,11 +8,11 @@ function buildFileSelector(){
 }
 
 class FileDialogue extends React.Component {
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
 
         this.state = {
-            jsonFile: [],
+            jsonFile: []
         };
     }
     
@@ -21,14 +21,14 @@ class FileDialogue extends React.Component {
     }
 
     handleFileSelect = (e) => {
-        // https://developer.mozilla.org/pt-BR/docs/Web/API/FileReader/onload
-        e.preventDefault();
-
         var file = e.target.files[0];
         var reader = new FileReader();
+
+        e.preventDefault();
+
         reader.onload = () => {
             this.setState({ jsonFile: JSON.parse(reader.result) }, () => {
-                console.log(this.state.jsonFile.fileInformation.version);
+                console.log(this.state.jsonFile.file_information.version);
             });            
         };
 
