@@ -1,4 +1,5 @@
 import React from 'react';
+import TimePanels from './TimePanels';
 
 function buildFileSelector(){
     const fileSelector = document.createElement('input');
@@ -28,7 +29,7 @@ class FileDialogue extends React.Component {
 
         reader.onload = () => {
             this.setState({ jsonFile: JSON.parse(reader.result) }, () => {
-                console.log(this.state.jsonFile.file_information.version);
+                // console.log(this.state.jsonFile.days);
             });            
         };
 
@@ -36,7 +37,12 @@ class FileDialogue extends React.Component {
     }
 
     render(){
-        return <input type="file" name="file" onChange={this.handleFileSelect.bind(this)}/>
+        return (
+            <div>
+                <input type="file" name="file" onChange={this.handleFileSelect.bind(this)}/>
+                <TimePanels json={this.state.jsonFile}/>
+            </div>
+        );
     }
 }
 

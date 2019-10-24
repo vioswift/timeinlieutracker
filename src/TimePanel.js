@@ -5,14 +5,20 @@ class TimePanel extends React.Component {
         super(props);
 
         this.state = {
-            color: "#CCCC00"
+            color: "transparent",
+            activeColor: "#CCCC00",
+            defaultColor: "transparent"
         };
     }
 
-    toggleCheckboxChange = (e) => {
-        this.setState(e.target.checked ? {color: "#CCCC00"} : {color: "transparent"});
+    componentDidMount() {
+        this.setState(this.props.isTIL? {color: this.state.activeColor} : {color: this.state.defaultColor});
     }
-        
+
+    toggleCheckboxChange = (e) => {
+        this.setState(e.target.checked ? {color: this.state.activeColor} : {color: this.state.defaultColor});
+    }
+
     render() {
         const {
             description,
