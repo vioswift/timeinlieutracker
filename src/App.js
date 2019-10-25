@@ -44,12 +44,12 @@ class App extends React.Component {
     //   });
     // });
 
-    var fs = require('browserify-fs');
-    fs.writeFile('./Desktop/saver.json', 'Hello world!\n', function() {
-      fs.readFile('./Desktop/saver.json', 'utf-8', function(err, data) {
-        console.log(data);
-      });
-    });
+    // var fs = require('browserify-fs');
+    // fs.writeFile('./Desktop/saver.json', 'Hello world!\n', function() {
+    //   fs.readFile('./Desktop/saver.json', 'utf-8', function(err, data) {
+    //     console.log(data);
+    //   });
+    // });
 
   }
 
