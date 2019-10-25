@@ -2,8 +2,10 @@ import React from 'react';
 
 function buildFileSelector(){
     const fileSelector = document.createElement('input');
+
     fileSelector.setAttribute('type', 'file');
     fileSelector.setAttribute('multiple', 'multiple');
+
     return fileSelector;
 }
 
@@ -19,7 +21,8 @@ class FileDialogue extends React.Component {
         e.preventDefault();
 
         reader.onload = () => {
-            this.props.fileData(JSON.parse(reader.result));           
+            this.props.fileData(JSON.parse(reader.result));    
+            this.props.fileName(file.name);       
         };
 
         reader.readAsText(file);
