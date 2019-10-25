@@ -23,14 +23,33 @@ class App extends React.Component {
     //   }
     // }
 
-    const fs = require('fs');
-    fs.appendFile('saver.json', 'testtt', (err) => {
-      if (err) {
-        console.error(err)
-        return
-      }
-      //done!
-    })
+    // const fs = require('fs');
+    // fs.appendFile('saver.json', 'testtt', (err) => {
+    //   if (err) {
+    //     console.error(err)
+    //     return
+    //   }
+    //   //done!
+    // })
+
+    // var fs = require('browserify-fs');
+    // fs.appendFile('saver.json', 'Hello world!\n', function(err, data) {
+    //   if (err) {
+    //     console.error(err)
+    //     return
+    //   }
+
+    //   fs.readFile('saver.json', 'utf-8', function(err, data) {
+    //     console.log(data);
+    //   });
+    // });
+
+    var fs = require('browserify-fs');
+    fs.writeFile('./Desktop/saver.json', 'Hello world!\n', function() {
+      fs.readFile('./Desktop/saver.json', 'utf-8', function(err, data) {
+        console.log(data);
+      });
+    });
 
   }
 
