@@ -2,7 +2,6 @@ import React from 'react';
 import './App.css';
 import FileDialogue from './FileDialogue';
 import TimePanels from './TimePanels';
-// import fs from 'fs';
 
 class App extends React.Component {
   constructor(props) {
@@ -10,47 +9,18 @@ class App extends React.Component {
 
     this.state = {
       jsonFile: [],
-      jsonFileName: ""
+      jsonFileName: "",
+      file: ""
     };
 }
 
   sayHello(e) {
-    // const storeData = (data, path) => {
-    //   try {
-    //     fs.writeFileSync(this.state.jsonFile, JSON.stringify(data))
-    //   } catch (err) {
-    //     console.error(err)
-    //   }
-    // }
-
-    // const fs = require('fs');
-    // fs.appendFile('saver.json', 'testtt', (err) => {
-    //   if (err) {
-    //     console.error(err)
-    //     return
-    //   }
-    //   //done!
-    // })
-
-    // var fs = require('browserify-fs');
-    // fs.appendFile('saver.json', 'Hello world!\n', function(err, data) {
-    //   if (err) {
-    //     console.error(err)
-    //     return
-    //   }
-
-    //   fs.readFile('saver.json', 'utf-8', function(err, data) {
-    //     console.log(data);
-    //   });
+    // const fs = app.require('fs');
+    
+    // window.Electron.fs.appendFile('mynewfile1.txt', 'Hello content!', function (err) {
+    //   if (err) throw err;
+    //   console.log('Saved!');
     // });
-
-    // var fs = require('browserify-fs');
-    // fs.writeFile('./Desktop/saver.json', 'Hello world!\n', function() {
-    //   fs.readFile('./Desktop/saver.json', 'utf-8', function(err, data) {
-    //     console.log(data);
-    //   });
-    // });
-
   }
 
   render() {
@@ -66,13 +36,16 @@ class App extends React.Component {
             fileName={fileName => {
               this.setState({ jsonFileName: fileName });
             }}
+            file={file => {
+              this.setState({ file: file });
+            }}
           />
 
           {this.state.jsonFileName}
 
           <TimePanels json={this.state.jsonFile}/>
 
-          <button onClick={this.sayHello}>
+          <button onClick={this.sayHello(this.state.file)}>
             Click me!
           </button>
 

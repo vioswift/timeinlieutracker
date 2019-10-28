@@ -22,7 +22,8 @@ class FileDialogue extends React.Component {
 
         reader.onload = () => {
             this.props.fileData(JSON.parse(reader.result));    
-            this.props.fileName(file.name);       
+            this.props.fileName(file.name); 
+            this.props.file(file); 
         };
 
         reader.readAsText(file);

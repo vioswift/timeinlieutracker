@@ -20,16 +20,21 @@ app.on('activate', function () {
 
 function createWindow() {
     mainWindow = new BrowserWindow({
-        width: 1024,
+        width: 1820,
         height: 1024,
-        title: "Chat desktop app demo"
+        title: "Vioswift - Time In Lieu Tracker",
+        fullscreenable: true,
+        webPreferences: { 
+            nodeIntegration: true,
+            preload: __dirname + '/src/Preload.js'
+        }
     });
     mainWindow.loadURL(isDev ? 'http://localhost:3000' : `file://${path.join(__dirname, '../build/index.html')}`);
     mainWindow.on('closed', function () {
-        mainWindow = null
+        mainWindow = null;
     })
     mainWindow.on('page-title-updated', function (e) {
-        e.preventDefault()
+        e.preventDefault();
     });
 
     if (isDev) {
