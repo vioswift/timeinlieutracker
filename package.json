@@ -1,20 +1,12 @@
 {
   "name": "timeinlieutracker",
-  "author": "Vioswift",
-  "description": "An app for calculating time in lieu.",
-  "homepage": "./",
   "version": "0.1.0",
   "private": true,
-  "dependencies": {},
-  "devDependencies": {
-    "concurrently": "^5.0.0",
-    "electron": "^7.0.0",
-    "electron-builder": "^21.2.0",
+  "dependencies": {
     "electron-is-dev": "^1.1.0",
-    "react": "^16.10.2",
-    "react-dom": "^16.10.2",
-    "react-scripts": "3.1.2",
-    "wait-on": "^3.3.0"
+    "react": "^16.11.0",
+    "react-dom": "^16.11.0",
+    "react-scripts": "3.2.0"
   },
   "main": "public/electron.js",
   "scripts": {
@@ -22,23 +14,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "electron-dev": "concurrently \"SET BROWSER=none&&npm start\" \"wait-on http://localhost:3000 && electron .\"",
-    "electron-pack": "build --em.main=build/electron.js",
-    "preelectron-pack": "npm build",
-    "pack": "electron-builder --dir",
-    "dist": "electron-builder"
-  },
-  "build": {
-    "appId": "com.vioswift.timeinlieutracker",
-    "productName": "timeinlieutracker",
-    "target": "NSIS",
-    "directories":{
-      "buildResources": "assets"
-    },
-    "nsis": {
-      "allowToChangeInstallationDirectory": true,
-      "oneClick": false
-    }
+    "electron-dev": "concurrently \"cross-env BROWSER=none npm start\" \"wait-on http://localhost:3000 && electron .\"",
+    "electron-pack": "electron-builder -c.extraMetadata.main=build/electron.js",
+    "preelectron-pack": "react-scripts build"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -54,5 +32,12 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "concurrently": "^5.0.0",
+    "cross-env": "^6.0.3",
+    "electron": "^7.0.0",
+    "electron-builder": "^21.2.0",
+    "wait-on": "^3.3.0"
   }
 }
