@@ -25,8 +25,7 @@ function createWindow() {
         title: "Vioswift - Time In Lieu Tracker",
         fullscreenable: true,
         webPreferences: { 
-            nodeIntegration: true,
-            preload: __dirname + '/src/Preload.js'
+            nodeIntegration: true
         }
     });
     mainWindow.loadURL(isDev ? 'http://localhost:3000' : `file://${path.join(__dirname, '../build/index.html')}`);

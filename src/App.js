@@ -8,19 +8,31 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      jsonFile: [],
-      jsonFileName: "",
-      file: ""
+      jsonData: [],
+      jsonFilePath: "None"
     };
 }
 
-  sayHello(e) {
-    // const fs = app.require('fs');
+  save() {
+    // const fs = window.require('fs');
     
-    // window.Electron.fs.appendFile('mynewfile1.txt', 'Hello content!', function (err) {
+    // fs.appendFile(this.state.jsonFilePath, 'Hello content!', function (err) {
     //   if (err) throw err;
     //   console.log('Saved!');
     // });
+
+    // console.log(this.state.jsonData[0].days[0].description)
+
+    let newState = Object.assign({}, this.state.jsonData);
+    newState[0].days[0].description = "Tofu Stir Fry and other stuff";
+    this.setState({jsonData: newState});
+
+    this.state.jsonData.map(data =>
+      data.days.map(days =>
+        console.log(days.description)
+      )
+    )
+
   }
 
   render() {
@@ -31,23 +43,18 @@ class App extends React.Component {
           
           <FileDialogue                         
             fileData={data => {
-              this.setState({ jsonFile: data });
+              this.setState({ jsonData: data });
             }}
-            fileName={fileName => {
-              this.setState({ jsonFileName: fileName });
-            }}
-            file={file => {
-              this.setState({ file: file });
+            filePath={path => {
+              this.setState({ jsonFilePath: path });
             }}
           />
 
-          {this.state.jsonFileName}
+          <p><strong>File Path:</strong> {this.state.jsonFilePath}</p>
+      
+          <TimePanels json={this.state.jsonData}/>
 
-          <TimePanels json={this.state.jsonFile}/>
-
-          <button onClick={this.sayHello(this.state.file)}>
-            Click me!
-          </button>
+          <button onClick={this.save.bind(this)}>Save</button>
 
         </header>
       </div>

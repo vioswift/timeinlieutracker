@@ -1,17 +1,17 @@
 import React from 'react';
 
-function buildFileSelector(){
-    const fileSelector = document.createElement('input');
-
-    fileSelector.setAttribute('type', 'file');
-    fileSelector.setAttribute('multiple', 'multiple');
-
-    return fileSelector;
-}
-
 class FileDialogue extends React.Component {
+    buildFileSelector(){
+        const fileSelector = document.createElement('input');
+    
+        fileSelector.setAttribute('type', 'file');
+        fileSelector.setAttribute('multiple', 'multiple');
+    
+        return fileSelector;
+    }
+
     componentDidMount(){
-        this.fileSelector = buildFileSelector();
+        this.fileSelector = this.buildFileSelector();
     }
 
     handleFileSelect = (e) => {
@@ -21,9 +21,8 @@ class FileDialogue extends React.Component {
         e.preventDefault();
 
         reader.onload = () => {
-            this.props.fileData(JSON.parse(reader.result));    
-            this.props.fileName(file.name); 
-            this.props.file(file); 
+            this.props.fileData(JSON.parse(reader.result));
+            this.props.filePath(file.path); 
         };
 
         reader.readAsText(file);
