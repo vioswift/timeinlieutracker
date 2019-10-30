@@ -11,28 +11,22 @@ class App extends React.Component {
       jsonData: [],
       jsonFilePath: "None"
     };
-}
+  }
 
-  save() {
-    // const fs = window.require('fs');
-    
-    // fs.appendFile(this.state.jsonFilePath, 'Hello content!', function (err) {
-    //   if (err) throw err;
-    //   console.log('Saved!');
-    // });
+  addTimePanel(){
+    let newState = this.state.jsonData;
 
-    // console.log(this.state.jsonData[0].days[0].description)
-
-    let newState = Object.assign({}, this.state.jsonData);
-    newState[0].days[0].description = "Tofu Stir Fry and other stuff";
+    newState[0].days.push(            
+    {
+      id: newState[0].days.length + 1,
+      date: "00/00/0000",
+      description: "new",
+      start_time: "00/00/0000",
+      end_time: "00/00/0000",
+      is_time_in_lieu: true,
+      updated: "00/00/0000 00:00:00"
+    });
     this.setState({jsonData: newState});
-
-    this.state.jsonData.map(data =>
-      data.days.map(days =>
-        console.log(days.description)
-      )
-    )
-
   }
 
   render() {
@@ -52,9 +46,9 @@ class App extends React.Component {
 
           <p><strong>File Path:</strong> {this.state.jsonFilePath}</p>
       
-          <TimePanels json={this.state.jsonData}/>
+          <TimePanels json={this.state.jsonData} filePath={this.state.jsonFilePath}/>
 
-          <button onClick={this.save.bind(this)}>Save</button>
+          <button onClick={this.addTimePanel.bind(this)}>Add Panel</button>
 
         </header>
       </div>
