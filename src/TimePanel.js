@@ -1,5 +1,6 @@
 import React from 'react';
 import File from './File';
+import moment from 'moment';
 
 class TimePanel extends React.Component {
     constructor(props) {
@@ -9,7 +10,8 @@ class TimePanel extends React.Component {
             color: "transparent",
             activeColor: "#CCCC00",
             defaultColor: "transparent",
-            renderChild: true
+            renderChild: true,
+            dateFormat: "MMMM Do YYYY, h:mm:ss a"
         };
     }
 
@@ -33,6 +35,7 @@ class TimePanel extends React.Component {
         let newState = this.props.day;
 
         newState.is_time_in_lieu = e.target.checked;
+        newState.updated = moment().format(this.state.dateFormat);
         this.setState({day: newState});
         this.changeBackground(e.target.checked);
         this.saveFile();
@@ -42,6 +45,7 @@ class TimePanel extends React.Component {
         let newState = this.props.day;
 
         newState.description = e.target.value;
+        newState.updated = moment().format(this.state.dateFormat);
         this.setState({day: newState});
         this.saveFile();
     }
@@ -50,6 +54,7 @@ class TimePanel extends React.Component {
         let newState = this.props.day;
 
         newState.date = e.target.value;
+        newState.updated = moment().format(this.state.dateFormat);
         this.setState({day: newState});
         this.saveFile();
     }
@@ -58,6 +63,7 @@ class TimePanel extends React.Component {
         let newState = this.props.day;
 
         newState.start_time = e.target.value;
+        newState.updated = moment().format(this.state.dateFormat);
         this.setState({day: newState});
         this.saveFile();
     }
@@ -66,6 +72,7 @@ class TimePanel extends React.Component {
         let newState = this.props.day;
 
         newState.end_time = e.target.value;
+        newState.updated = moment().format(this.state.dateFormat);
         this.setState({day: newState});
         this.saveFile();
     }

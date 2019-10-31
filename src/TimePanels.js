@@ -1,6 +1,7 @@
 import React from 'react';
 import TimePanel from './TimePanel';
 import File from './File';
+import moment from 'moment';
 
 class TimePanels extends React.Component {
     getHighestId(array) {
@@ -27,7 +28,7 @@ class TimePanels extends React.Component {
             start_time: "00:00 AM",
             end_time: "00:00 AM",
             is_time_in_lieu: true,
-            updated: new Date()
+            updated: moment().format('MMMM Do YYYY, h:mm:ss a')
         });
         
         this.setState({json: newState});
