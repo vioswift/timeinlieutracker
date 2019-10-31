@@ -1,6 +1,10 @@
 import React from 'react';
 
 class FileDialogue extends React.Component {
+    state = {
+        fileName: "Choose File"
+    };
+
     buildFileSelector(){
         const fileSelector = document.createElement('input');
     
@@ -23,13 +27,22 @@ class FileDialogue extends React.Component {
         reader.onload = () => {
             this.props.fileData(JSON.parse(reader.result));
             this.props.filePath(file.path); 
+            this.setState({fileName: file.name});
         };
 
         reader.readAsText(file);
     }
 
     render(){
-        return <input type="file" name="file" onChange={this.handleFileSelect.bind(this)}/>
+        return (
+            <div className="input-group">
+                <div className="custom-file">
+                    <input type="file" onChange={this.handleFileSelect.bind(this)} className="custom-file-input" id="inputGroupFile01"
+                    aria-describedby="inputGroupFileAddon01"/>
+                    <label className="custom-file-label" htmlFor="inputGroupFile01">{this.state.fileName}</label>
+                </div>
+            </div>
+        );
     }
 }
 

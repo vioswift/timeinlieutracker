@@ -1,7 +1,8 @@
 import React from 'react';
-import './App.css';
 import FileDialogue from './FileDialogue';
 import TimePanels from './TimePanels';
+import 'bootstrap/dist/css/bootstrap.css';
+import './style.css';
 
 class App extends React.Component {
   constructor(props) {

@@ -83,15 +83,34 @@ class TimePanel extends React.Component {
         if (this.state.renderChild)
         return (
             <div style={{background: this.state.color}}>
-                <button type="submit" onClick={this.removeTimePanel.bind(this)}>DELETE</button><br/>
-                Date: <input type="text" name="fname" onChange={this.dateChange} defaultValue={day.date}/><br/>
-                Description: <input type="text" name="fname" onChange={this.descriptionChange} defaultValue={day.description}/><br/>
-                Start Time: <input type="text" name="fname" onChange={this.startTimeChange} defaultValue={day.start_time}/><br/>
-                End Time: <input type="text" name="fname" onChange={this.endTimeChange} defaultValue={day.end_time}/><br/>
-                Is Time In Lieu: <input type="checkbox" name="vehicle1" value="Bike" onChange={this.toggleCheckboxChange} defaultChecked={day.is_time_in_lieu}/><br/>
-                <small>Last Updated: {day.updated}</small>
-
-                <br/><br/>
+                <tr>
+                    <td>
+                        <button type="button" className="btn btn-danger" onClick={this.removeTimePanel.bind(this)}>DELETE</button><br/>
+                    </td>
+                    <td>
+                        <input className="form-control" type="date" id="example-date-input" onChange={this.dateChange} defaultValue={day.date}/>
+                    </td>
+                    <td>
+                        <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter a description" onChange={this.descriptionChange} defaultValue={day.description}/>
+                    </td>
+                    <td>
+                        <input className="form-control" type="time" id="example-time-input" onChange={this.startTimeChange} defaultValue={day.start_time}/>
+                    </td>
+                    <td>
+                        <input className="form-control" type="time" id="example-time-input" onChange={this.endTimeChange} defaultValue={day.end_time}/>
+                    </td>
+                    <td>
+                        <input type="checkbox" className="form-check-input" id="exampleCheck1" onChange={this.toggleCheckboxChange} defaultChecked={day.is_time_in_lieu}/>
+                    </td>
+                    <td>
+                        total
+                    </td>
+                </tr>
+                {/* <tr>
+                    <td>
+                        <small id="emailHelp" className="form-text text-muted"><strong>Last Updated:</strong> {day.updated}</small>
+                    </td>
+                </tr> */}
             </div>
         );
         return '';

@@ -69,8 +69,35 @@ class TimePanels extends React.Component {
 
         return (
             <div>
-                {timePanelMap}
-                <button onClick={this.addTimePanel.bind(this)}>Add Panel</button>
+                <table className="table table-bordered table-striped table-highlight">
+                    <thead className="row">
+                        <th>
+                            <strong>DELETE</strong> 
+                        </th>
+                        <th>
+                            <strong>Date</strong>
+                        </th>
+                        <th>
+                            <strong>Description</strong>
+                        </th>
+                        <th>
+                            <strong>Start Time</strong>
+                        </th>
+                        <th>
+                            <strong>End Time</strong>
+                        </th>
+                        <th>
+                            <strong>Is Time In Lieu</strong>
+                        </th>
+                        <th>
+                            <strong>TOTAL</strong>
+                        </th>
+                    </thead>
+                    <tbody>
+                        {timePanelMap}
+                    </tbody>
+                </table>
+                <button type="button" className="btn btn-success" onClick={this.addTimePanel.bind(this)}>Add Panel</button>
             </div>
         );
     }
