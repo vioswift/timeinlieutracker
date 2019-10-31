@@ -70,7 +70,7 @@ class TimePanels extends React.Component {
         return (
             <div>
                 <table className="table table-bordered table-striped table-highlight">
-                    <thead className="row">
+                    <tr>
                         <th>
                             <strong>DELETE</strong> 
                         </th>
@@ -92,7 +92,7 @@ class TimePanels extends React.Component {
                         <th>
                             <strong>TOTAL</strong>
                         </th>
-                    </thead>
+                    </tr>
                     <tbody>
                         {timePanelMap}
                     </tbody>

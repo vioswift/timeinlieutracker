@@ -82,8 +82,8 @@ class TimePanel extends React.Component {
 
         if (this.state.renderChild)
         return (
-            <div style={{background: this.state.color}}>
-                <tr>
+            <div>
+                <tr style={{background: this.state.color}}>
                     <td>
                         <button type="button" className="btn btn-danger" onClick={this.removeTimePanel.bind(this)}>DELETE</button><br/>
                     </td>
