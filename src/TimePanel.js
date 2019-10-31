@@ -1,5 +1,5 @@
 import React from 'react';
-const fs = window.require('fs');
+import File from './File';
 
 class TimePanel extends React.Component {
     constructor(props) {
@@ -8,39 +8,25 @@ class TimePanel extends React.Component {
         this.state = {
             color: "transparent",
             activeColor: "#CCCC00",
-            defaultColor: "transparent"
+            defaultColor: "transparent",
+            renderChild: true
         };
-    }
-
-    saveFile() {
-        let writer = fs.createWriteStream(this.props.filePath, {flags:'w'})
-        .on('error', function (err) {
-            console.log(err);
-        });
-
-        writer.write(JSON.stringify(this.props.jsonData));
-    }
-
-    removeTimePanel() {
-        let days = this.props.jsonData[0].days;
-        let dayId = this.props.day.id;
-
-        for(var count = 0; count < days.length; count++){ 
-            if (days[count].id === dayId) {
-                days.splice(count, 1); 
-            }
-        }
-        // this.saveFile();
-
-        // ############ this needs to be able to remove items from the DOM
-    }
-
-    changeBackground(checked) {
-        this.setState(checked ? {color: this.state.activeColor} : {color: this.state.defaultColor});
     }
 
     componentDidMount() {
         this.changeBackground(this.props.day.is_time_in_lieu);
+    }
+
+    saveFile() {
+        new File().saveFile(this.props.filePath, this.props.jsonData);
+    }
+
+    removeTimePanel() {
+        this.props.removeTimePanel(this.props.day.id);
+    }
+
+    changeBackground(checked) {
+        this.setState(checked ? {color: this.state.activeColor} : {color: this.state.defaultColor});
     }
 
     toggleCheckboxChange = (e) => {
@@ -87,6 +73,7 @@ class TimePanel extends React.Component {
     render() {
         const { day } = this.props;
 
+        if (this.state.renderChild)
         return (
             <div style={{background: this.state.color}}>
                 <button type="submit" onClick={this.removeTimePanel.bind(this)}>DELETE</button><br/>
@@ -94,11 +81,13 @@ class TimePanel extends React.Component {
                 Description: <input type="text" name="fname" onChange={this.descriptionChange} defaultValue={day.description}/><br/>
                 Start Time: <input type="text" name="fname" onChange={this.startTimeChange} defaultValue={day.start_time}/><br/>
                 End Time: <input type="text" name="fname" onChange={this.endTimeChange} defaultValue={day.end_time}/><br/>
-                Is Time In Lieu: <input type="checkbox" name="vehicle1" value="Bike" onChange={this.toggleCheckboxChange} defaultChecked={day.is_time_in_lieu}/>
+                Is Time In Lieu: <input type="checkbox" name="vehicle1" value="Bike" onChange={this.toggleCheckboxChange} defaultChecked={day.is_time_in_lieu}/><br/>
+                <small>Last Updated: {day.updated}</small>
 
                 <br/><br/>
             </div>
         );
+        return '';
     }
 }
 
