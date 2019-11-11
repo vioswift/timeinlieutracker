@@ -10,7 +10,7 @@ class App extends React.Component {
 
     this.state = {
       jsonData: [],
-      jsonFilePath: "None"
+      jsonFilePath: null
     };
   }
 

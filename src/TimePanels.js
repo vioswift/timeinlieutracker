@@ -23,12 +23,12 @@ class TimePanels extends React.Component {
         days.push(            
         {
             id: this.getHighestId(days) + 1,
-            date: "00/00/0000",
-            description: "new",
-            start_time: "00:00 AM",
-            end_time: "00:00 AM",
-            is_time_in_lieu: true,
-            updated: moment().format('MMMM Do YYYY, h:mm:ss a')
+            date: moment().format('YYYY-MM-DD'),
+            description: "",
+            start_time: moment().format('hh:mm'),
+            end_time: moment().format('hh:mm'),
+            is_time_in_lieu: false,
+            updated: moment().format('MMMM Do YYYY, h:mm:ss A')
         });
         
         this.setState({json: newState});
@@ -54,50 +54,52 @@ class TimePanels extends React.Component {
         const { json, filePath } = this.props;
         const timePanelMap = json.map(data =>
             data.days.map(day =>
-                <div key={day.id}>
-                    <TimePanel 
-                        day={day} 
-                        filePath={filePath} 
-                        jsonData={json}
-                        removeTimePanel={id => {
-                            this.removeTimePanel(id);
-                        }}
-                    />
-                </div>
+                <TimePanel 
+                    key={day.id}
+                    day={day} 
+                    filePath={filePath} 
+                    jsonData={json}
+                    removeTimePanel={id => {
+                        this.removeTimePanel(id);
+                    }}
+                />
             )
         )
+        const addPanelButton = <button type="button" className="btn btn-success" onClick={this.addTimePanel.bind(this)}>Add Panel</button>;
 
         return (
             <div>
                 <table className="table table-bordered table-striped table-highlight">
-                    <tr>
-                        <th>
-                            <strong>DELETE</strong> 
-                        </th>
-                        <th>
-                            <strong>Date</strong>
-                        </th>
-                        <th>
-                            <strong>Description</strong>
-                        </th>
-                        <th>
-                            <strong>Start Time</strong>
-                        </th>
-                        <th>
-                            <strong>End Time</strong>
-                        </th>
-                        <th>
-                            <strong>Is Time In Lieu</strong>
-                        </th>
-                        <th>
-                            <strong>TOTAL</strong>
-                        </th>
-                    </tr>
+                    <thead>
+                        <tr>
+                            <th>
+                                <strong>DELETE</strong> 
+                            </th>
+                            <th>
+                                <strong>Date</strong>
+                            </th>
+                            <th>
+                                <strong>Description</strong>
+                            </th>
+                            <th>
+                                <strong>Start Time</strong>
+                            </th>
+                            <th>
+                                <strong>End Time</strong>
+                            </th>
+                            <th>
+                                <strong>Is TIL</strong>
+                            </th>
+                            <th>
+                                <strong>TOTAL</strong>
+                            </th>
+                        </tr>
+                    </thead>
                     <tbody>
                         {timePanelMap}
                     </tbody>
                 </table>
-                <button type="button" className="btn btn-success" onClick={this.addTimePanel.bind(this)}>Add Panel</button>
+                {filePath ? addPanelButton : ''}
             </div>
         );
     }
