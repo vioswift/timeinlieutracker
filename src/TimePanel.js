@@ -3,23 +3,20 @@ import File from './File';
 import moment from 'moment';
 
 class TimePanel extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            color: "transparent",
-            activeColor: "#CCCC00",
-            defaultColor: "transparent",
-            renderChild: true,
-            dateFormat: "MMMM Do YYYY, h:mm:ss A"
-        };
-    }
+    state = {
+        color: "transparent",
+        activeColor: "#ffffb2",
+        defaultColor: "transparent",
+        renderChild: true,
+        dateFormat: "MMMM Do YYYY, h:mm:ss A"
+    };
 
     componentDidMount() {
         this.changeBackground(this.props.day.is_time_in_lieu);
     }
 
     saveFile() {
+        this.props.setTotals();
         new File().saveFile(this.props.filePath, this.props.jsonData);
     }
 
@@ -33,7 +30,7 @@ class TimePanel extends React.Component {
         let difference = endTime.diff(startTime)
         let duration = moment.duration(difference);
 
-        return Math.floor(duration.asHours()) + moment.utc(difference).format(":mm");
+        return Math.floor(duration.asHours()) + " hrs, " + moment.utc(difference).format("m") + " mins";
     }
 
     changeBackground(checked) {
@@ -94,7 +91,7 @@ class TimePanel extends React.Component {
             <>
                 <tr style={{background: this.state.color}}>
                     <td>
-                        <button type="button" className="btn btn-danger" onClick={this.removeTimePanel.bind(this)}>DELETE</button><br/>
+                        <button type="button" className="btn btn-danger" onClick={this.removeTimePanel.bind(this)}>X</button><br/>
                     </td>
                     <td>
                         <input className="form-control" type="date" id="example-date-input" onChange={this.dateChange} defaultValue={day.date}/>

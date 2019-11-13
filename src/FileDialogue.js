@@ -1,22 +1,10 @@
 import React from 'react';
+import NewFile from './NewFile';
 
 class FileDialogue extends React.Component {
     state = {
         fileName: "Choose File"
     };
-
-    buildFileSelector(){
-        const fileSelector = document.createElement('input');
-    
-        fileSelector.setAttribute('type', 'file');
-        fileSelector.setAttribute('multiple', 'multiple');
-    
-        return fileSelector;
-    }
-
-    componentDidMount(){
-        this.fileSelector = this.buildFileSelector();
-    }
 
     handleFileSelect = (e) => {
         var file = e.target.files[0];
@@ -24,22 +12,30 @@ class FileDialogue extends React.Component {
 
         e.preventDefault();
 
-        reader.onload = () => {
-            this.props.fileData(JSON.parse(reader.result));
-            this.props.filePath(file.path); 
-            this.setState({fileName: file.name});
-        };
-
-        reader.readAsText(file);
+        if (file) {
+            reader.onload = () => {
+                this.props.fileData(JSON.parse(reader.result));
+                this.props.filePath(file.path); 
+                this.setState({fileName: file.name});
+            };
+            reader.readAsText(file);
+        }
     }
 
-    render(){
+    render() {
         return (
-            <div className="input-group">
-                <div className="custom-file">
-                    <input type="file" onChange={this.handleFileSelect.bind(this)} className="custom-file-input" id="inputGroupFile01"
-                    aria-describedby="inputGroupFileAddon01"/>
-                    <label className="custom-file-label" htmlFor="inputGroupFile01">{this.state.fileName}</label>
+            <div className="row">
+                <div className="col-auto">
+                    <div className="input-group">
+                        <div className="custom-file">
+                            <input type="file" onChange={this.handleFileSelect.bind(this)} className="custom-file-input" id="inputGroupFileOpen"
+                            aria-describedby="inputGroupFileAddon01" accept=".json"/>
+                            <label className="custom-file-label" htmlFor="inputGroupFileOpen">{this.state.fileName}</label>
+                        </div>
+                    </div>
+                </div>
+                <div className="col-auto">
+                    <NewFile/>
                 </div>
             </div>
         );

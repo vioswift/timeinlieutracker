@@ -4,6 +4,54 @@ import File from './File';
 import moment from 'moment';
 
 class TimePanels extends React.Component {
+    state = {
+        total_til: 0,
+        total_overtime: 0,
+        total_balance: 0
+    }
+
+    componentDidMount() {
+        this.setTotals();
+    }
+
+    getTotal(difference) {
+        return Math.trunc(moment.duration(difference).asHours()) + " hrs, " +  moment.duration(difference).minutes() + " mins";
+    }
+
+    getTimeDifference(_startTime, _endTime) {
+        var startTime = moment(_startTime, 'HH:mm');
+        var endTime = moment(_endTime, 'HH:mm');
+        let difference = endTime.diff(startTime);
+
+        return difference;
+    }
+
+    getTotal_isTIL(isTIL) {
+        var total = 0;
+        let newState = this.props.json;
+        let days = newState[0].days;
+
+        for(var count = 0; count < days.length; count++){ 
+            if (days[count].is_time_in_lieu === isTIL) {
+                total += this.getTimeDifference(days[count].start_time, days[count].end_time);
+            }
+        }
+
+        return total;
+    }
+
+    getTotal_balance() {
+        return this.getTotal_isTIL(false) - this.getTotal_isTIL(true);
+    }
+
+    setTotals() {
+        this.setState({
+            total_til: this.getTotal(this.getTotal_isTIL(true)),
+            total_overtime: this.getTotal(this.getTotal_isTIL(false)),
+            total_balance: this.getTotal(this.getTotal_balance())
+        });
+    }
+
     getHighestId(array) {
         var highestId = 0;
 
@@ -16,7 +64,7 @@ class TimePanels extends React.Component {
         return highestId;
     }
 
-    addTimePanel(){
+    addTimePanel() {
         let newState = this.props.json;
         let days = newState[0].days;
     
@@ -62,6 +110,9 @@ class TimePanels extends React.Component {
                     removeTimePanel={id => {
                         this.removeTimePanel(id);
                     }}
+                    setTotals={() => {
+                        this.setTotals();
+                    }}
                 />
             )
         )
@@ -71,7 +122,7 @@ class TimePanels extends React.Component {
             <div>
                 <table className="table table-bordered table-striped table-highlight">
                     <thead>
-                        <tr>
+                        <tr className="grey-bg">
                             <th>
                                 <strong>DELETE</strong> 
                             </th>
@@ -97,6 +148,23 @@ class TimePanels extends React.Component {
                     </thead>
                     <tbody>
                         {timePanelMap}
+                    </tbody>
+                </table>
+
+                <table className="total-table table-bordered">
+                    <tbody>
+                        <tr>
+                            <td className="til"><strong>Time In Lieu</strong></td>
+                            <td>{filePath ? this.state.total_til : ''}</td>
+                        </tr>
+                        <tr>
+                            <td className=""><strong>Overtime</strong></td>
+                            <td>{filePath ? this.state.total_overtime : ''}</td>
+                        </tr>
+                        <tr>
+                            <td className="grey-bg"><strong>BALANCE</strong></td>
+                            <td>{filePath ? this.state.total_balance : ''}</td>
+                        </tr>
                     </tbody>
                 </table>
                 {filePath ? addPanelButton : ''}

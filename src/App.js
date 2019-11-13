@@ -5,21 +5,15 @@ import 'bootstrap/dist/css/bootstrap.css';
 import './style.css';
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      jsonData: [],
-      jsonFilePath: null
-    };
-  }
+  state = {
+    jsonData: [],
+    jsonFilePath: null
+  };
 
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <h1>TimeInLieuTracker</h1>
-          
+      <div className="container-fluid">
+          <div className="p-2"></div>
           <FileDialogue                         
             fileData={data => {
               this.setState({ jsonData: data });
@@ -28,11 +22,9 @@ class App extends React.Component {
               this.setState({ jsonFilePath: path });
             }}
           />
-
           <p><strong>File Path:</strong> {this.state.jsonFilePath}</p>
       
-          <TimePanels json={this.state.jsonData} filePath={this.state.jsonFilePath}/>
-        </header>
+          {this.state.jsonFilePath ? <TimePanels json={this.state.jsonData} filePath={this.state.jsonFilePath}/> : ''}
       </div>
     );
   }
