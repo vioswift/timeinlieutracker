@@ -1,49 +1,45 @@
 import React from 'react';
 import File from './File';
-const fs = window.require('fs');
+var electron = window.require('electron').remote;
 
 class NewFile extends React.Component {
-    addTimePanel() {
-        let newState = this.props.json;
-        let days = newState[0].days;
+    state = {
+        fileName: null
+    };
 
+    handleClick = (e) => {
+        let options = {
+            title: "Save file - JSON",
+            buttonLabel : "Save JSON File",
+            filters :[
+                {name: 'JSON', extensions: ['json']}
+            ]
+        }
 
-        
-        new File().saveFile(this.props.filePath, this.props.json);
+        electron.dialog.showSaveDialog(window.mainWindow, options)
+        .then(result => {
+            new File().newFile(result.filePath);
+            this.props.fileData(new File().getNewFileInfo());
+            this.props.filePath(result.filePath); 
+        }).catch(err => {
+            // console.log(err);
+            // electron.dialog.showMessageBox(window.mainWindow, {
+            //     title: 'Error: Creating a new file',
+            //     buttons: ['Dismiss'],
+            //     type: 'warning',
+            //     message: 'There was an error creating the new file',
+            // });
+        });
     }
 
-    handleFileSelect = (e) => {
-        var file = e.target.files[0];
-        var reader = new FileReader();
-
-        new File().saveFile(file.path, this.props.json);
-
-        e.preventDefault();
-
-        // if (file) {
-        //     reader.onload = () => {
-        //         this.props.fileData(JSON.parse(reader.result));
-        //         this.props.filePath(file.path); 
-        //         // this.setState({fileName: file.name});
-
-
-        //     };
-        //     reader.readAsText(file);
-        // }
-    }
-
-    handleClick() {
-        document.getElementById("inputGroupFileFolder").click();
+    handleChange = (e) => {
+        this.setState({ fileName: e.target.value });
     }
 
     render() {
         return (
             <div className="input-group mb-3">
-                <input type="text" className="form-control" placeholder="Untitled" aria-label="Untitled" aria-describedby="basic-addon2"/>
-                <div className="input-group-append">
-                    <button type="button" className="input-group-text" onClick={this.handleClick}>New File</button>
-                    <input directory="" webkitdirectory="" type="file" onChange={this.handleFileSelect.bind(this)} className="btn btn-outline-secondary" id="inputGroupFileFolder" hidden/>
-                </div>
+                <button type="button" onClick={this.handleClick.bind(this)} className="btn btn-primary">New File</button>
             </div>
         );
     }

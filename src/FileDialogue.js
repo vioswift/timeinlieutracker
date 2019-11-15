@@ -1,5 +1,4 @@
 import React from 'react';
-import NewFile from './NewFile';
 
 class FileDialogue extends React.Component {
     state = {
@@ -16,7 +15,7 @@ class FileDialogue extends React.Component {
             reader.onload = () => {
                 this.props.fileData(JSON.parse(reader.result));
                 this.props.filePath(file.path); 
-                this.setState({fileName: file.name});
+                this.setState({ fileName: file.name });
             };
             reader.readAsText(file);
         }
@@ -24,19 +23,10 @@ class FileDialogue extends React.Component {
 
     render() {
         return (
-            <div className="row">
-                <div className="col-auto">
-                    <div className="input-group">
-                        <div className="custom-file">
-                            <input type="file" onChange={this.handleFileSelect.bind(this)} className="custom-file-input" id="inputGroupFileOpen"
-                            aria-describedby="inputGroupFileAddon01" accept=".json"/>
-                            <label className="custom-file-label" htmlFor="inputGroupFileOpen">{this.state.fileName}</label>
-                        </div>
-                    </div>
-                </div>
-                <div className="col-auto">
-                    <NewFile/>
-                </div>
+            <div className="custom-file">
+                <input type="file" onChange={this.handleFileSelect.bind(this)} className="custom-file-input" id="inputGroupFileOpen"
+                aria-describedby="inputGroupFileAddon01" accept=".json"/>
+                <label className="custom-file-label" htmlFor="inputGroupFileOpen">{this.state.fileName}</label>
             </div>
         );
     }
