@@ -3,7 +3,7 @@ import FileDialogue from './FileDialogue';
 import NewFile from './NewFile';
 import TimePanels from './TimePanels';
 import 'bootstrap/dist/css/bootstrap.css';
-import './style.css';
+import css from './style.css';
 
 class App extends React.Component {
   state = {
@@ -12,29 +12,18 @@ class App extends React.Component {
   };
 
   print() {
-    // window.print();
+    let printWindow = window.open("data:text/html;charset=utf-8,", "", "");
+    printWindow.document.write("<!DOCTYPE html><html><head>");
+    printWindow.document.write('<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.0/css/bootstrap.min.css" integrity="sha384-SI27wrMjH3ZZ89r4o+fGIJtnzkAnFs3E4qz9DIYioCQ5l9Rd/7UAa8DHcaL8jkWt" crossorigin="anonymous">');
+    printWindow.document.write("</head><body>");
+    printWindow.document.write(document.getElementById("tableInformation").innerHTML);
+    printWindow.document.write("</body></html>");
 
-
-    // const remote = require('electron').remote;
-    // const BrowserWindow = window.BrowserWindow;
-    // const win = new BrowserWindow({
-    //   height: 600,
-    //   width: 800
-    // });
-  
-    // win.loadURL('<url>');
-
-    // var wnd = window.open("about:blank", "", "_blank");
-    // wnd.document.write("test");
-    // wnd.open(this);
-
-
-
-
-    // window.open("data:text/html;charset=utf-8," + document.body.innerHTML, "", "_blank");
-
-
+    printWindow.onload = (event) => {
+      printWindow.window.print();
+    };
     
+    // printWindow.close();
   }
 
   render() {
@@ -66,8 +55,11 @@ class App extends React.Component {
             </div>
           </div>
           <small><strong>File Path:</strong> {this.state.jsonFilePath}</small>
-      
-          {this.state.jsonFilePath ? <TimePanels json={this.state.jsonData} filePath={this.state.jsonFilePath}/> : ''}
+            
+          <div id="tableInformation">
+            {this.state.jsonFilePath ? <TimePanels json={this.state.jsonData} filePath={this.state.jsonFilePath}/> : ''}
+          </div>
+          
           <button type="button" className="btn btn-success noprint" onClick={this.print}>Print</button>
       </div>
     );
