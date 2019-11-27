@@ -11,6 +11,32 @@ class App extends React.Component {
     jsonFilePath: null
   };
 
+  print() {
+    // window.print();
+
+
+    // const remote = require('electron').remote;
+    // const BrowserWindow = window.BrowserWindow;
+    // const win = new BrowserWindow({
+    //   height: 600,
+    //   width: 800
+    // });
+  
+    // win.loadURL('<url>');
+
+    // var wnd = window.open("about:blank", "", "_blank");
+    // wnd.document.write("test");
+    // wnd.open(this);
+
+
+
+
+    // window.open("data:text/html;charset=utf-8," + document.body.innerHTML, "", "_blank");
+
+
+    
+  }
+
   render() {
     return (
       <div className="container-fluid">
@@ -42,6 +68,7 @@ class App extends React.Component {
           <small><strong>File Path:</strong> {this.state.jsonFilePath}</small>
       
           {this.state.jsonFilePath ? <TimePanels json={this.state.jsonData} filePath={this.state.jsonFilePath}/> : ''}
+          <button type="button" className="btn btn-success noprint" onClick={this.print}>Print</button>
       </div>
     );
   }

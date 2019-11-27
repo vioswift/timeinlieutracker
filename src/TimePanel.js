@@ -25,12 +25,17 @@ class TimePanel extends React.Component {
     }
 
     getTimeDifference() {
-        var startTime = moment(this.props.day.start_time, 'HH:mm');
-        var endTime = moment(this.props.day.end_time, 'HH:mm');
+        var startTime = moment(this.props.day.start_time, 'H:mm A');
+        var endTime = moment(this.props.day.end_time, 'H:mm A');
         let difference = endTime.diff(startTime)
         let duration = moment.duration(difference);
+        let total = Math.floor(duration.asHours()) + " hrs, " + moment.utc(difference).format("m") + " mins";
 
-        return Math.floor(duration.asHours()) + " hrs, " + moment.utc(difference).format("m") + " mins";
+        if (Number.isNaN(duration) ||  Number.isNaN(difference)) {
+            return "Error";
+        } else {
+            return total;
+        }
     }
 
     changeBackground(checked) {
@@ -94,17 +99,17 @@ class TimePanel extends React.Component {
                         <button type="button" className="btn btn-danger" onClick={this.removeTimePanel.bind(this)}>X</button><br/>
                     </td>
                     <td>
-                        <input className="form-control" type="date" id="example-date-input" onChange={this.dateChange} defaultValue={day.date}/>
+                        <input className="form-control" type="text" id="date-input" placeholder="YYYY-MM-DD" onChange={this.dateChange} defaultValue={day.date}/>
                         <small id="lastUpdated" className="form-text text-muted"><strong>Last Updated:</strong> {day.updated}</small>
                     </td>
                     <td>
-                        <input type="email" className="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter a description" onChange={this.descriptionChange} defaultValue={day.description}/>
+                        <input type="text" className="form-control" id="text" placeholder="Enter a description" onChange={this.descriptionChange} defaultValue={day.description}/>
                     </td>
                     <td>
-                        <input className="form-control" type="time" id="startTime" onChange={this.startTimeChange} defaultValue={day.start_time}/>
+                        <input className="form-control" type="text" id="startTime" placeholder="H:mm AM" onChange={this.startTimeChange} defaultValue={day.start_time}/>
                     </td>
                     <td>
-                        <input className="form-control" type="time" id="endTime" onChange={this.endTimeChange} defaultValue={day.end_time}/>
+                        <input className="form-control" type="text" id="endTime" placeholder="H:mm AM" onChange={this.endTimeChange} defaultValue={day.end_time}/>
                     </td>
                     <td>
                         <div className="custom-control custom-switch">

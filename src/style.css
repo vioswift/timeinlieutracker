@@ -13,3 +13,9 @@
 .til {
     background-color: #ffffb2;
 }
+
+@media print {    
+    .noprint { 
+        display: none; 
+    }
+}

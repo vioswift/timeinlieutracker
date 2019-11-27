@@ -14,6 +14,14 @@ class TimePanels extends React.Component {
         this.setTotals();
     }
 
+    validateNumber(number) {
+        if (Number.isNaN(number)) {
+            return 0;
+        } else {
+            return number;
+        }
+    }
+
     getTotal(difference) {
         return Math.trunc(moment.duration(difference).asHours()) + " hrs, " +  moment.duration(difference).minutes() + " mins";
     }
@@ -37,11 +45,12 @@ class TimePanels extends React.Component {
             }
         }
 
-        return total;
+        return this.validateNumber(total);
     }
 
     getTotal_balance() {
-        return this.getTotal_isTIL(false) - this.getTotal_isTIL(true);
+        let totalBalance = this.getTotal_isTIL(false) - this.getTotal_isTIL(true);
+        return this.validateNumber(totalBalance);
     }
 
     setTotals() {
@@ -127,16 +136,16 @@ class TimePanels extends React.Component {
                                 <strong>DELETE</strong> 
                             </th>
                             <th>
-                                <strong>Date</strong>
+                                <strong>Date</strong> <small>(YYYY-MM-DD)</small>
                             </th>
                             <th>
                                 <strong>Description</strong>
                             </th>
                             <th>
-                                <strong>Start Time</strong>
+                                <strong>Start Time</strong> <small>(H:mm AM/PM)</small>
                             </th>
                             <th>
-                                <strong>End Time</strong>
+                                <strong>End Time</strong> <small>(H:mm AM/PM)</small>
                             </th>
                             <th>
                                 <strong>Is TIL</strong>
