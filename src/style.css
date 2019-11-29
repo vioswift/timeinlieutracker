@@ -14,8 +14,16 @@
     background-color: #ffffb2;
 }
 
+.colour-transparent {
+    background-color: transparent;
+}
+
 @media print {    
     .noprint { 
-        display: none; 
+        display: none !important; 
+    }
+
+    .noprintborder { 
+        border: none !important;
     }
 }

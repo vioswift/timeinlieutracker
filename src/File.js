@@ -33,6 +33,17 @@ class File extends React.Component {
     getNewFileInfo() {
         return this.newFileInfo;
     }
+
+    getFileAsText = (path) => {
+        return fs.readFileSync(path, 'utf-8', (err, data) => {
+            if(err){
+                alert("An error ocurred reading the file styles to print:" + err.message);
+                return;
+            }
+            
+            return data;
+        });
+    }
 }
 
 export default File;

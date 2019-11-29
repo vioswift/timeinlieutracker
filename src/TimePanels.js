@@ -2,6 +2,7 @@ import React from 'react';
 import TimePanel from './TimePanel';
 import File from './File';
 import moment from 'moment';
+import Print from './Print';
 
 class TimePanels extends React.Component {
     state = {
@@ -129,10 +130,10 @@ class TimePanels extends React.Component {
 
         return (
             <div>
-                <table className="table table-bordered table-striped table-highlight">
+                <table className="table table-bordered table-highlight">
                     <thead>
                         <tr className="grey-bg">
-                            <th>
+                            <th className="noprint">
                                 <strong>DELETE</strong> 
                             </th>
                             <th>
@@ -142,10 +143,10 @@ class TimePanels extends React.Component {
                                 <strong>Description</strong>
                             </th>
                             <th>
-                                <strong>Start Time</strong> <small>(H:mm AM/PM)</small>
+                                <strong>Start Time</strong> <small className="noprint">(H:mm AM/PM)</small>
                             </th>
                             <th>
-                                <strong>End Time</strong> <small>(H:mm AM/PM)</small>
+                                <strong>End Time</strong> <small className="noprint">(H:mm AM/PM)</small>
                             </th>
                             <th>
                                 <strong>Is TIL</strong>
@@ -176,7 +177,11 @@ class TimePanels extends React.Component {
                         </tr>
                     </tbody>
                 </table>
-                {filePath ? addPanelButton : ''}
+
+                <div className="btn-group noprint">
+                    {filePath ? addPanelButton : ''}
+                    <Print/>
+                </div>
             </div>
         );
     }
