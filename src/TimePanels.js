@@ -108,6 +108,15 @@ class TimePanels extends React.Component {
         new File().saveFile(this.props.filePath, this.props.json);
     }
 
+    // need to hide and show Signature elements in real-time
+    showSignatures(show) {
+        let newState = this.props.json;
+
+        newState[0].settings.show_signatures = show.target.checked;
+        this.setState({json: newState});
+        new File().saveFile(this.props.filePath, this.props.json);
+    }
+
     render() {
         const { json, filePath } = this.props;
         const timePanelMap = json.map(data =>
@@ -126,7 +135,37 @@ class TimePanels extends React.Component {
                 />
             )
         )
-        const addPanelButton = <button type="button" className="btn btn-success" onClick={this.addTimePanel.bind(this)}>Add Panel</button>;
+        const timePanelButtons = (
+            <div className="noprint">
+                <div className="btn-group">
+                    <button type="button" className="btn btn-success" onClick={this.addTimePanel.bind(this)}>Add Panel</button>
+                    <Print/>
+                </div>
+                <div className="custom-control custom-checkbox mb-3">
+                    <input type="checkbox" className="custom-control-input" id="showSignatures" defaultChecked={this.props.json[0].settings.show_signatures} onChange={this.showSignatures.bind(this)}/>
+                    <label className="custom-control-label" htmlFor="showSignatures">Show Signatures</label>
+                </div>
+            </div>
+        );
+
+        const totals = (
+            <table className="total-table table-bordered">
+                <tbody>
+                    <tr>
+                        <td className="til"><strong>Time In Lieu</strong></td>
+                        <td>{this.state.total_til}</td>
+                    </tr>
+                    <tr>
+                        <td className=""><strong>Overtime</strong></td>
+                        <td>{this.state.total_overtime}</td>
+                    </tr>
+                    <tr>
+                        <td className="grey-bg"><strong>BALANCE</strong></td>
+                        <td>{this.state.total_balance}</td>
+                    </tr>
+                </tbody>
+            </table>
+        );
 
         return (
             <div>
@@ -161,27 +200,8 @@ class TimePanels extends React.Component {
                     </tbody>
                 </table>
 
-                <table className="total-table table-bordered">
-                    <tbody>
-                        <tr>
-                            <td className="til"><strong>Time In Lieu</strong></td>
-                            <td>{filePath ? this.state.total_til : ''}</td>
-                        </tr>
-                        <tr>
-                            <td className=""><strong>Overtime</strong></td>
-                            <td>{filePath ? this.state.total_overtime : ''}</td>
-                        </tr>
-                        <tr>
-                            <td className="grey-bg"><strong>BALANCE</strong></td>
-                            <td>{filePath ? this.state.total_balance : ''}</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <div className="btn-group noprint">
-                    {filePath ? addPanelButton : ''}
-                    <Print/>
-                </div>
+                {filePath ? totals : ''}
+                {filePath ? timePanelButtons : ''}
             </div>
         );
     }

@@ -11,7 +11,9 @@ class Print extends React.Component {
         printWindow.document.write("<!DOCTYPE html><html><head>");
         printWindow.document.write('<style>' + styleCSSText + bootStrapCSSText + '</style>');
         printWindow.document.write("</head><body>");
+        printWindow.document.write(document.getElementById("signatures").innerHTML);
         printWindow.document.write(document.getElementById("tableInformation").innerHTML);
+        printWindow.document.write(document.getElementById("copyright").innerHTML);
         printWindow.document.write("</body></html>");
         printWindow.window.print();
         printWindow.close();
