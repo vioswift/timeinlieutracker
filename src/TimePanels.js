@@ -3,16 +3,19 @@ import TimePanel from './TimePanel';
 import File from './File';
 import moment from 'moment';
 import Print from './Print';
+import Signatures from './Signatures';
 
 class TimePanels extends React.Component {
     state = {
         total_til: 0,
         total_overtime: 0,
-        total_balance: 0
+        total_balance: 0,
+        showSignatures: false
     }
 
     componentDidMount() {
         this.setTotals();
+        this.setState({showSignatures: this.props.json[0].settings.show_signatures });
     }
 
     validateNumber(number) {
@@ -108,10 +111,10 @@ class TimePanels extends React.Component {
         new File().saveFile(this.props.filePath, this.props.json);
     }
 
-    // need to hide and show Signature elements in real-time
     showSignatures(show) {
         let newState = this.props.json;
 
+        this.setState({showSignatures: show.target.checked });
         newState[0].settings.show_signatures = show.target.checked;
         this.setState({json: newState});
         new File().saveFile(this.props.filePath, this.props.json);
@@ -156,7 +159,7 @@ class TimePanels extends React.Component {
                         <td>{this.state.total_til}</td>
                     </tr>
                     <tr>
-                        <td className=""><strong>Overtime</strong></td>
+                        <td><strong>Overtime</strong></td>
                         <td>{this.state.total_overtime}</td>
                     </tr>
                     <tr>
@@ -169,6 +172,7 @@ class TimePanels extends React.Component {
 
         return (
             <div>
+                {filePath && this.state.showSignatures ? <Signatures/> : ''}
                 <table className="table table-bordered table-highlight">
                     <thead>
                         <tr className="grey-bg">

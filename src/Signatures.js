@@ -2,7 +2,6 @@ import React from 'react';
 
 class Signatures extends React.Component {
     render() {
-        if (this.props.show)
         return (
                 <div id="signatures">
                     <div className="p-2"></div>
@@ -32,8 +31,6 @@ class Signatures extends React.Component {
                     </div>
                 </div>
             );
-
-            return '';
         }
     }
     
