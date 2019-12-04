@@ -15,7 +15,7 @@ class TimePanels extends React.Component {
 
     componentDidMount() {
         this.setTotals();
-        this.setState({showSignatures: this.props.json[0].settings.show_signatures });
+        this.setState({ showSignatures: this.props.json[0].settings.show_signatures });
     }
 
     validateNumber(number) {

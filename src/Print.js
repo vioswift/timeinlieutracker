@@ -6,8 +6,7 @@ class Print extends React.Component {
     print() {
         let styleCSSText = new File().getFileAsText('./src/style.css');
         let bootStrapCSSText = new File().getFileAsText('./node_modules/bootstrap/dist/css/bootstrap.css');
-        let printWindow = window.open("data:text/html;charset=utf-8,", "", "");
-        var signaturesElement = document.getElementById("signatures"); 
+        let printWindow = window.open("data:text/html;charset=utf-8,", "", ""); 
 
         printWindow.document.write("<!DOCTYPE html><html><head>");
         printWindow.document.write('<style>' + styleCSSText + bootStrapCSSText + '</style>');
