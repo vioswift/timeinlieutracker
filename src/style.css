@@ -1,5 +1,6 @@
 .grey-bg {
     background-color: WhiteSmoke;
+    -webkit-print-color-adjust: exact;
 }
 
 .total-table {
@@ -12,10 +13,20 @@
 
 .til {
     background-color: #ffffb2;
+    -webkit-print-color-adjust: exact;
 }
 
 .colour-transparent {
     background-color: transparent;
+    -webkit-print-color-adjust: exact;
+}
+
+.printonly { 
+    display: none !important; 
+}
+
+.table {
+    -webkit-print-color-adjust: exact;
 }
 
 @media print {    
@@ -25,5 +36,29 @@
 
     .noprintborder { 
         border: none !important;
+    }
+
+    .printonly { 
+        display: block !important;
+    }
+
+    input { 
+        width: 150px !important;
+    }
+    input::-webkit-input-placeholder { /* WebKit browsers */
+        color: transparent !important;
+    }
+    input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+        color: transparent !important;
+    }
+    input::-moz-placeholder { /* Mozilla Firefox 19+ */
+        color: transparent !important;
+    }
+    input:-ms-input-placeholder { /* Internet Explorer 10+ */
+        color: transparent !important;
+    }
+
+    .textcanprintlonger {
+        width: auto !important;
     }
 }

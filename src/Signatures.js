@@ -9,7 +9,7 @@ class Signatures extends React.Component {
                         <div className="row">
                             <div className="col-3">
                                 <label htmlFor="empSignature">Employees Signature</label>
-                                <input type="text" className="form-control" id="empSignature" readOnly="readonly"/>
+                                <input type="text" className="form-control textcanprintlonger" id="empSignature" readOnly="readonly"/>
                             </div>
                             <div className="col-2">
                                 <label htmlFor="empSigned">Signed</label>
@@ -21,7 +21,7 @@ class Signatures extends React.Component {
                         <div className="row">
                             <div className="col-3">
                                 <label htmlFor="mgrsSignature">Managers Signature</label>
-                                <input type="text" className="form-control" id="mgrsSignature" readOnly="readonly"/>
+                                <input type="text" className="form-control textcanprintlonger" id="mgrsSignature" readOnly="readonly"/>
                             </div>
                             <div className="col-2">
                                 <label htmlFor="mgrsSigned">Signed</label>

@@ -94,7 +94,6 @@ class TimePanel extends React.Component {
         if (this.state.renderChild)
         return (
             <>
-                {/* <tr style={{background: this.state.color}}> */}
                 <tr className={this.state.color}>
                     <td className="noprint">
                         <button type="button" className="btn btn-danger" onClick={this.removeTimePanel.bind(this)}>X</button><br/>
@@ -104,7 +103,7 @@ class TimePanel extends React.Component {
                         <small id="lastUpdated" className="form-text text-muted noprint"><strong>Last Updated:</strong> {day.updated}</small>
                     </td>
                     <td>
-                        <input type="text" className="form-control noprintborder" id="text" placeholder="Enter a description" onChange={this.descriptionChange} defaultValue={day.description}/>
+                        <input type="text" className="form-control textcanprintlonger noprintborder" id="text" placeholder="Enter a description" onChange={this.descriptionChange} defaultValue={day.description}/>
                     </td>
                     <td>
                         <input className="form-control noprintborder" type="text" id="startTime" placeholder="H:mm AM" onChange={this.startTimeChange} defaultValue={day.start_time}/>
@@ -113,10 +112,11 @@ class TimePanel extends React.Component {
                         <input className="form-control noprintborder" type="text" id="endTime" placeholder="H:mm AM" onChange={this.endTimeChange} defaultValue={day.end_time}/>
                     </td>
                     <td>
-                        <div className="custom-control custom-switch">
+                        <div className="custom-control custom-switch noprint">
                             <input type="checkbox" className="custom-control-input" id={this.props.day.id} onChange={this.toggleCheckboxChange} defaultChecked={day.is_time_in_lieu}/>
                             <label className="custom-control-label" htmlFor={this.props.day.id}></label>
                         </div>
+                        <div className="printonly">{day.is_time_in_lieu ? 'YES' : 'NO'}</div>
                     </td>
                     <td>
                         {this.getTimeDifference()}

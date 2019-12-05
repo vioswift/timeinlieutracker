@@ -39,8 +39,9 @@ class App extends React.Component {
               />
             </div>
           </div>
-          <small><strong>File Path:</strong> {this.state.jsonFilePath}</small>
-            
+          <small><strong>File Path:</strong> {this.state.jsonFilePath}</small> <br/>
+          <small><strong>Saved:</strong> <span id="saved">{this.state.jsonFilePath ?  this.state.jsonData[0].settings.saved : ''}</span></small>
+
           <div id="tableInformation">
             {this.state.jsonFilePath ? <TimePanels json={this.state.jsonData} filePath={this.state.jsonFilePath}/> : ''}
           </div>

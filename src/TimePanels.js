@@ -65,33 +65,11 @@ class TimePanels extends React.Component {
         });
     }
 
-    getHighestId(array) {
-        var highestId = 0;
-
-        for(var count = 0; count < array.length; count++){ 
-            if (highestId < array[count].id) {
-                highestId = array[count].id;
-            }
-        }
-
-        return highestId;
-    }
-
     addTimePanel() {
         let newState = this.props.json;
         let days = newState[0].days;
-    
-        days.push(            
-        {
-            id: this.getHighestId(days) + 1,
-            date: moment().format('YYYY-MM-DD'),
-            description: "",
-            start_time: moment().format('hh:mm'),
-            end_time: moment().format('hh:mm'),
-            is_time_in_lieu: false,
-            updated: moment().format('MMMM Do YYYY, h:mm:ss A')
-        });
-        
+
+        days.push(new File().getNewDay(days));
         this.setState({json: newState});
         new File().saveFile(this.props.filePath, this.props.json);
     }
@@ -192,7 +170,7 @@ class TimePanels extends React.Component {
                                 <strong>End Time</strong> <small className="noprint">(H:mm AM/PM)</small>
                             </th>
                             <th>
-                                <strong>Is TIL</strong>
+                                <strong>TIL</strong>
                             </th>
                             <th>
                                 <strong>TOTAL</strong>
