@@ -4,7 +4,7 @@ import File from './File';
 //  this is a temporary fix as chrome has a bug where it will only let you print once
 class Print extends React.Component {
     print() {
-        let styleCSSText = new File().getFileAsText('./src/style.css');
+        let styleCSSText = new File().getFileAsText(process.env.PUBLIC_URL + 'src/style.css'); // this URL has issues in production build
         let bootStrapCSSText = new File().getFileAsText('./node_modules/bootstrap/dist/css/bootstrap.css');
         let printWindow = window.open("data:text/html;charset=utf-8,", "", ""); 
 
