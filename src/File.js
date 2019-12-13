@@ -85,6 +85,14 @@ class File extends React.Component {
             return data;
         });
     }
+
+    fetchTextFile = (path) => {
+        fetch(path)
+        .then((r) => r.text())
+        .then(text  => {
+            alert(text);
+        });
+    }
 }
 
 export default File;

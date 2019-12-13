@@ -184,6 +184,7 @@ class TimePanels extends React.Component {
 
                 {filePath ? totals : ''}
                 {filePath ? timePanelButtons : ''}
+                <small className="noprint"><strong>*WARNING: Due to a Google Chrome bug, you must restart this application to print more than once.</strong></small>
             </div>
         );
     }

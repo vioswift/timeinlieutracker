@@ -24,6 +24,9 @@
     "preelectron-pack": "react-scripts build",
     "s": "concurrently \"cross-env BROWSER=none npm start\" \"wait-on http://localhost:3000 && electron .\""
   },
+  "build": {
+    "icon": "public/timeinlieutracker-logo-white.png"
+  },
   "browserslist": {
     "production": [
       ">0.2%",

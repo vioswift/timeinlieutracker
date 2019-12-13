@@ -23,7 +23,7 @@ class FileDialogue extends React.Component {
 
     render() {
         return (
-            <div className="custom-file">
+            <div className="custom-file noprint">
                 <input type="file" onChange={this.handleFileSelect.bind(this)} className="custom-file-input" id="inputGroupFileOpen"
                 aria-describedby="inputGroupFileAddon01" accept=".json"/>
                 <label className="custom-file-label" htmlFor="inputGroupFileOpen">{this.state.fileName}</label>

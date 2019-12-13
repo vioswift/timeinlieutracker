@@ -20,10 +20,11 @@ app.on('activate', function () {
 
 function createWindow() {
     mainWindow = new BrowserWindow({
-        width: 1820,
-        height: 1024,
-        title: "Vioswift - Time In Lieu Tracker",
-        // icon: path.join(__dirname, '../assets/icons/png/timeinlieutracker-logo-white.png'),        
+        width: 1200,
+        height: 800,
+        minWidth: 1200,
+        minHeight: 400,
+        title: "Vioswift - Time In Lieu Tracker",      
         icon: path.join(__dirname, '../public/timeinlieutracker-logo-white.png'),
         fullscreenable: true,
         webPreferences: { 
@@ -40,11 +41,10 @@ function createWindow() {
         e.preventDefault();
     });
 
-    mainWindow.webContents.openDevTools();
     if (isDev) {
         // Open the DevTools.
         //BrowserWindow.addDevToolsExtension('<location to your react chrome extension>');
-        mainWindow.webContents.openDevTools();
+        // mainWindow.webContents.openDevTools();
     }else {
         Menu.setApplicationMenu(null);
     }
